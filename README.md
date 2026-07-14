@@ -1,51 +1,40 @@
-# 📧 AI-Based Email Classification and Automated Gmail Label Management using n8n
+Here's a cleaner, professional GitHub README for a **Data Analyst portfolio**. It removes emojis, artificial styling, "Step" wording, and JavaScript from the tools section while keeping the workflow screenshot at the top.
 
-## 📷 Workflow Architecture
+# AI-Based Email Classification and Automated Gmail Label Management using n8n
 
-<p align="center">
-  <img src="images/workflow.png" alt="AI Email Classification Workflow" width="1000">
-</p>
+## Workflow Architecture
 
----
+<img width="1651" height="829" alt="n8n manual Screenshot" src="https://github.com/user-attachments/assets/f66e1587-3cb0-416e-8320-001e2acb1a74" />
 
-## 📌 Project Overview
 
-This project automates Gmail email management using **n8n workflow automation**. The workflow retrieves emails from Gmail, analyzes the email content using JavaScript-based classification logic, categorizes emails into different groups, and automatically applies Gmail labels based on the detected category.
+## Project Overview
 
-The main objective of this project is to reduce manual email sorting, improve inbox organization, and automate Gmail label management using workflow automation.
+This project automates Gmail email management using n8n workflow automation. The workflow retrieves emails from Gmail, classifies them into different categories based on predefined business rules, and automatically applies Gmail labels to organize the inbox.
 
----
+The project demonstrates workflow automation, conditional routing, API integration, and automated email organization to reduce manual effort and improve productivity.
 
-## 🎯 Project Objectives
+## Project Objectives
 
 * Automate Gmail email processing.
 * Retrieve email details automatically from Gmail.
-* Classify emails into three categories:
-
-  * Important
-  * Job
-  * Spam
+* Classify emails into Important, Job, and Spam categories.
 * Automatically apply Gmail labels based on the detected category.
-* Improve email organization and user productivity.
-* Build an intelligent workflow using n8n automation.
+* Improve email organization and productivity.
+* Build an automated email management workflow using n8n.
 
----
+## Tools and Technologies
 
-## 🛠️ Tools & Technologies Used
+| Tool             | Purpose                            |
+| ---------------- | ---------------------------------- |
+| n8n              | Workflow Automation                |
+| Gmail API        | Retrieve and Update Gmail Messages |
+| Switch Node      | Conditional Routing                |
+| Edit Fields Node | Data Preparation                   |
+| Gmail Labels     | Automatic Email Organization       |
+| GitHub           | Version Control                    |
 
-| Tool             | Purpose                      |
-| ---------------- | ---------------------------- |
-| n8n              | Workflow Automation          |
-| Gmail API        | Retrieve Gmail Messages      |
-| JavaScript       | Email Classification Logic   |
-| Switch Node      | Conditional Routing          |
-| Edit Fields Node | Prepare Data Before Labeling |
-| Gmail Label API  | Apply Gmail Labels           |
-| GitHub           | Version Control              |
-
----
-
-# 🔄 Workflow Architecture
+-
+## Workflow
 
 ```text
 Manual Trigger
@@ -54,8 +43,7 @@ Manual Trigger
 Get Many Gmail Messages
       │
       ▼
-JavaScript Code
-(Classify Email)
+Email Classification
       │
       ▼
 Switch Node
@@ -69,100 +57,54 @@ Edit Fields Edit Fields Edit Fields
  │          │          │
  ▼          ▼          ▼
 Add Label   Add Label   Add Label
-```
 
----
 
-# ⚙️ Workflow Explanation
+## Workflow Explanation
 
-## Step 1 – Manual Trigger
+### Manual Trigger
 
-**Purpose**
+Starts the workflow manually when the user clicks **Execute Workflow**.
 
-Starts the workflow manually whenever the user clicks **Execute Workflow**.
-
----
-
-## Step 2 – Gmail Node (Get Many Messages)
-
-**Purpose**
+### Gmail – Get Many Messages
 
 Retrieves multiple emails from the Gmail inbox.
 
-### Email Details Retrieved
+The workflow extracts:
 
 * Email ID
 * Thread ID
 * Sender
 * Receiver
 * Subject
-* Email Body
-* Labels
+* Email Content
+* Existing Labels
 
-Example:
 
-**From**
+### Email Classification
 
-Job Hai
+The workflow analyzes the email content and classifies emails using predefined business rules.
 
-**Subject**
+**Job Category**
 
-Fresh jobs picked for you
+Keywords related to recruitment, job opportunities, data analytics, SQL, Python, Power BI, Business Analyst, Data Engineer, AI Engineer, and similar terms are classified as **Job**.
 
----
+Priority: **Medium**
 
-## Step 3 – JavaScript Code Node
 
-**Purpose**
+**Important Category**
 
-Analyzes the email content and classifies each email using keyword-based logic.
+Keywords related to banking, OTP, verification, invoices, tax, passport, healthcare, and other important notifications are classified as **Important**.
 
-### Job Email Keywords
+Priority: **High**
 
-* Data Analytics
-* Business Analyst
-* SQL
-* Python
-* Power BI
-* Machine Learning
-* AI Engineer
-* Data Engineer
-* Excel
 
-Output
+**Default Category**
 
-* Category → Job
-* Priority → Medium
+Emails that do not match the predefined rules are classified as **Spam**.
 
----
+Priority: **Low**
 
-### Important Email Keywords
-
-* Bank
-* OTP
-* Invoice
-* Verification
-* Passport
-* Tax
-* Healthcare
-
-Output
-
-* Category → Important
-* Priority → High
-
----
-
-### Default Category
-
-If no matching keywords are found:
-
-* Category → Spam
-* Priority → Low
-
----
-
-### Generated Output
+Generated Output
 
 ```json
 {
@@ -170,41 +112,29 @@ If no matching keywords are found:
   "priority": "medium",
   "summary": "Email classified as job"
 }
-```
 
----
 
-## Step 4 – Switch Node
+### Switch Node
 
-**Purpose**
+Routes emails to the appropriate branch based on the generated category.
 
-Routes emails to different branches based on the generated category.
-
-### Routing Rules
-
-| Category  | Branch           |
+| Category  | Output Branch    |
 | --------- | ---------------- |
 | Important | Important Branch |
 | Job       | Job Branch       |
 | Spam      | Spam Branch      |
 
----
+### Edit Fields
 
-## Step 5 – Edit Fields Nodes
+Each branch prepares the required email information before updating Gmail labels.
 
-Each category has its own **Edit Fields** node to prepare the required email information before applying Gmail labels.
+* Important → Edit Fields
+* Job → Edit Fields 1
+* Spam → Edit Fields 2
 
-| Branch    | Node          |
-| --------- | ------------- |
-| Important | Edit Fields   |
-| Job       | Edit Fields 1 |
-| Spam      | Edit Fields 2 |
+### Gmail Label Management
 
----
-
-## Step 6 – Gmail Add Label to Message
-
-Automatically applies Gmail labels based on the classified category.
+Applies Gmail labels automatically according to the classified category.
 
 | Category  | Gmail Label |
 | --------- | ----------- |
@@ -212,77 +142,50 @@ Automatically applies Gmail labels based on the classified category.
 | Job       | Job         |
 | Spam      | AI-Spam     |
 
----
 
-# 📊 Sample Workflow Output
+## Sample Output
 
-| Email             | Category  | Label Applied |
-| ----------------- | --------- | ------------- |
-| Recruiter Email   | Job       | Job           |
-| Bank Notification | Important | Important     |
-| Promotional Email | Spam      | AI-Spam       |
+| Email Type        | Category  | Gmail Label |
+| ----------------- | --------- | ----------- |
+| Recruiter Email   | Job       | Job         |
+| Bank Notification | Important | Important   |
+| Promotional Email | Spam      | AI-Spam     |
 
----
 
-# ✅ Key Features
+## Key Features
 
 * Automated Gmail email processing
-* Keyword-based email classification
+* Email classification using predefined business rules
 * Automatic Gmail label assignment
 * Conditional routing using Switch Node
-* Multiple email processing
-* Structured workflow automation
-* Easy to extend with AI models
+* Batch processing of multiple emails
+* Workflow automation using n8n
 
----
 
-# 📈 Business Benefits
+## Business Benefits
 
-* Eliminates manual email sorting.
-* Improves Gmail inbox organization.
-* Automatically prioritizes important emails.
-* Helps users quickly identify job-related emails.
-* Reduces time spent managing emails.
-* Demonstrates business workflow automation using n8n.
+* Reduces manual email sorting.
+* Organizes Gmail inbox automatically.
+* Prioritizes important emails.
+* Separates recruitment emails for easy tracking.
+* Improves productivity through workflow automation.
 
----
 
-# 🚀 Future Enhancements
+## Future Enhancements
 
 * Integrate Google Gemini or OpenAI for AI-powered email classification.
-* Replace keyword-based logic with Natural Language Processing (NLP).
-* Automatically generate email replies.
+* Replace rule-based classification with Natural Language Processing (NLP).
 * Store classified email data in Google Sheets or a database.
-* Build an analytics dashboard showing:
-
-  * Job Emails
-  * Important Emails
-  * Spam Emails
-* Schedule automatic execution using Gmail Trigger.
-
----
-
-# 📂 Repository Structure
-
-```text
-AI-Email-Classification-n8n/
-│
-├── images/
-│   └── workflow.png
-│
-├── workflow/
-│   └── email-classification-workflow.json
-│
-├── README.md
-│
-└── LICENSE
-```
+* Develop an interactive dashboard to analyze email categories.
+* Schedule automatic workflow execution using Gmail Trigger.
 
 
-# 👩‍💻 Author
+## Author
 
 **Rekaa Selvaraj**
 
-Aspiring Data Analyst | AI-Driven Data Analytics | n8n Workflow Automation | Python | SQL | Power BI | GitHub
+Aspiring Data Analyst
+
+
 
 
