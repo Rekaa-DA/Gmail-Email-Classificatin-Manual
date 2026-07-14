@@ -145,12 +145,10 @@ Automatically applies Gmail labels based on the classified category.
 - Schedule automatic workflow execution using Gmail Trigger.
 
 
-## Author
+## 👤 Author
 
-**Rekaa Selvaraj**
-
-Aspiring Data Analyst
-
-
+Rekaa
+📊 Aspiring Data Analyst
+🚀 Open to opportunities
 
 
